@@ -23,5 +23,16 @@ namespace se
 			m_pSceneNode = pSceneNode;			
 		}
 
+		bool CObject::Interset(const math::CRay &ray, math::CVector3 *hitPoint /*= nullptr*/)
+		{			
+			float distance = 0;			
+			if (Interset(ray, &distance))
+			{
+				*hitPoint = ray.GetOrigin() + distance * ray.GetDirection();
+				return true;
+			}
+			return false;
+		}
+
 	}
 }

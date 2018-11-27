@@ -40,6 +40,9 @@
     <Filter Include="source\device\win32">
       <UniqueIdentifier>{5fd15cd5-cfc5-4049-82cf-0d7f5f22edb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\resource">
+      <UniqueIdentifier>{2bc03995-7074-4d72-869e-374a02b465c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\base\StringHelper.cpp">
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\tracer.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\scene\CTriangleMeshObject.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\resource\CResourceManager.cpp">
+      <Filter>source\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="..\..\include\render\IRenderer.h">
       <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scene\CTriangleMeshObject.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\resource\IResourceManager.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\resource\CResourceManager.h">
+      <Filter>source\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

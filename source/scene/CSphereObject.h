@@ -11,8 +11,7 @@ namespace se
 		{
 		public:
 			CSphereObject(uint id, float fRadius, const base::Color &color);
-			~CSphereObject();
-			virtual bool Interset(const math::CRay &ray, math::CVector3 *hitPoint = nullptr);
+			~CSphereObject();			
 			virtual bool Interset(const math::CRay &ray, float *distance = nullptr);
 			virtual void GetSurfaceData(const math::CVector3 &hitPoint, math::CVector3 *normal, base::Color *color);
 		private:			

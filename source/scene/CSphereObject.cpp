@@ -7,28 +7,15 @@ namespace se
 	{
 		CSphereObject::CSphereObject(uint id, float fRadius, const base::Color &color)
 			:CObject(id), m_fRadius(fRadius), m_Color(color)
-		{
-			
+		{			
 		}
 
 		CSphereObject::~CSphereObject()
-		{
-
-		}
-
-		bool CSphereObject::Interset(const math::CRay &ray, math::CVector3 *hitPoint /*= nullptr*/)
-		{
-			float distance = 0;
-			if (Interset(ray, &distance))
-			{
-				*hitPoint = ray.GetOrigin() + distance * ray.GetDirection();
-				return true;
-			}			
-			return false;
+		{			
 		}
 
 		bool CSphereObject::Interset(const math::CRay &ray, float *distance /*= nullptr*/)
-		{
+		{			
 			float t0, t1; // solutions for t if the ray intersects
 #if 0
 			// geometric solution
@@ -66,7 +53,7 @@ namespace se
 		{
 			*normal = hitPoint - m_pSceneNode->GetAbslutePosition();
 			(*normal).normalize();
-			*color = m_Color;
+			*color = m_Color;			
 		}
 
 	}

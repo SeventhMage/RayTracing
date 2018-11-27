@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\source\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\source\device\win32\CDeviceWin32.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
+    <ClCompile Include="..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\source\scene\CCamera.cpp" />
     <ClCompile Include="..\..\source\scene\CObject.cpp" />
     <ClCompile Include="..\..\source\scene\CObjectManager.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\source\scene\CSceneNode.cpp" />
     <ClCompile Include="..\..\source\scene\CSphereObject.cpp" />
+    <ClCompile Include="..\..\source\scene\CTriangleMeshObject.cpp" />
     <ClCompile Include="..\..\source\tracer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +62,7 @@
     <ClInclude Include="..\..\include\math\CVector4.h" />
     <ClInclude Include="..\..\include\math\math.h" />
     <ClInclude Include="..\..\include\render\IRenderer.h" />
+    <ClInclude Include="..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\include\scene\ICamera.h" />
     <ClInclude Include="..\..\include\scene\IObject.h" />
     <ClInclude Include="..\..\include\scene\IObjectManager.h" />
@@ -75,6 +78,7 @@
     <ClInclude Include="..\..\source\device\CGestureTap.h" />
     <ClInclude Include="..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\source\device\win32\CDeviceWin32.h" />
+    <ClInclude Include="..\..\source\resource\CResourceManager.h" />
     <ClInclude Include="..\..\source\scene\CCamera.h" />
     <ClInclude Include="..\..\source\scene\CObject.h" />
     <ClInclude Include="..\..\source\scene\CObjectManager.h" />
@@ -83,6 +87,7 @@
     <ClInclude Include="..\..\source\scene\CSceneManager.h" />
     <ClInclude Include="..\..\source\scene\CSceneNode.h" />
     <ClInclude Include="..\..\source\scene\CSphereObject.h" />
+    <ClInclude Include="..\..\source\scene\CTriangleMeshObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4599E920-C7A9-4191-A50D-185D5D0184AF}</ProjectGuid>

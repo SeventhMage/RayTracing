@@ -3,6 +3,7 @@
 #include "device/CEventManager.h"
 #include "scene/CSceneManager.h"
 #include "scene/CObjectManager.h"
+#include "resource/CResourceManager.h"
 
 namespace se
 {
@@ -10,6 +11,7 @@ namespace se
 	device::IEventManager *CTracer::m_pEventMgr = nullptr;
 	scene::ISceneManager *CTracer::m_pSceneMgr = nullptr;
 	scene::IObjectManager *CTracer::m_pObjectMgr = nullptr;
+	resource::IResourceManager *CTracer::m_pResourceMgr = nullptr;
 
 	CTracer::CTracer(int x, int y, int width, int height, bool fullScreen /*= false*/)
 	{
@@ -17,6 +19,7 @@ namespace se
 		m_pEventMgr = device::CEventManager::NewInstance();
 		m_pSceneMgr = scene::CSceneManager::NewInstance();
 		m_pObjectMgr = scene::CObjectManager::NewInstance();		
+		m_pResourceMgr = resource::CResourceManager::NewInstance();
 
 		m_pDeviceMgr->CreateDevice(x, y, width, height, fullScreen);
 	}
@@ -27,7 +30,8 @@ namespace se
 		scene::CSceneManager::DeleteInstance();		
 		device::CDeviceManager::DeleteInstance();
 		device::CEventManager::DeleteInstance();
-
+		scene::CObjectManager::DeleteInstance();
+		resource::CResourceManager::DeleteInstance();
 	}
 
 }

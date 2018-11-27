@@ -1,5 +1,7 @@
 #include "CObjectManager.h"
 #include "CSphereObject.h"
+#include "CTriangleMeshObject.h"
+
 #include "base/def.h"
 
 namespace se
@@ -27,6 +29,23 @@ namespace se
 			size_t size = m_mapObjects.size();
 			uint id = size + 1;
 			m_mapObjects[id] = new CSphereObject(id, fRadius, color);			
+			return m_mapObjects[id];
+		}
+
+		IObject * CObjectManager::GreateTriangleMesh(const char *fileName)
+		{
+			size_t size = m_mapObjects.size();
+			uint id = size + 1;
+			m_mapObjects[id] = new CTriangleMeshObject(id);
+			m_mapObjects[id]->LoadMeshFromFile(fileName);
+			return m_mapObjects[id];
+		}
+
+		IObject * CObjectManager::GreateTriangleMesh(std::vector<math::CVector3> &vertices, std::vector<ushort> &indices, std::vector<math::CVector3> &normals, std::vector<math::CVector2> &texCoords)
+		{
+			size_t size = m_mapObjects.size();
+			uint id = size + 1;
+			m_mapObjects[id] = new CTriangleMeshObject(id, vertices, indices, normals, texCoords);
 			return m_mapObjects[id];
 		}
 
@@ -88,6 +107,5 @@ namespace se
 
 			return pObject != nullptr;
 		}
-
 	}
 }

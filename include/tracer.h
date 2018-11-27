@@ -7,6 +7,7 @@
 #include "device/IEventManager.h"
 #include "scene/ISceneManager.h"
 #include "scene/IObjectManager.h"
+#include "resource/IResourceManager.h"
 
 namespace se
 {
@@ -20,11 +21,13 @@ namespace se
 		static device::IEventManager *GetEventManager(){ return m_pEventMgr; }
 		static scene::ISceneManager *GetSceneManager() { return m_pSceneMgr; }
 		static scene::IObjectManager *GetObjectManager() { return m_pObjectMgr; }
+		static resource::IResourceManager *GetResourceManager(){ return m_pResourceMgr; }
 	private:
 		static device::IDeviceManager *m_pDeviceMgr;
 		static device::IEventManager *m_pEventMgr;
 		static scene::ISceneManager *m_pSceneMgr;
 		static scene::IObjectManager *m_pObjectMgr;
+		static resource::IResourceManager *m_pResourceMgr;
 	};
 }
 

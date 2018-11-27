@@ -30,14 +30,40 @@ int main(int argc, char *argv[])
 		float g = MAX(rand() % 255 / 255.f, 0.2f);
 		float b = MAX(rand() % 255 / 255.f, 0.2f);
 
-		IObject *pObject = objectMgr->CreateSphere(1, Color(a, r, g, b));
+		IObject *pObject = objectMgr->CreateSphere(1, Color(a, r, g, b));		
 		ISceneNode *pNode = scene->AddObject(pObject);
 		float x = rand() % 10 - 5;
 		float y = rand() % 10 - 5;
 		float z = rand() % 10 - 5;
 		pNode->SetPosition(CVector3(x, y, z));
 	}
+	
+	std::vector<math::CVector3> vertices;
+	vertices.push_back(CVector3(0, 0, 1));
+	vertices.push_back(CVector3(5, 1, 5));
+	vertices.push_back(CVector3(-2, 1, 5));
 
+	std::vector<ushort>indices;
+	indices.push_back(0);
+	indices.push_back(1);
+	indices.push_back(2);
+
+	std::vector<math::CVector3> normals;
+	normals.push_back(CVector3(0, 1, 0));
+	normals.push_back(CVector3(1, 1, 0));
+	normals.push_back(CVector3(0, 1, 1));
+
+	std::vector<math::CVector2> texCoords;
+	texCoords.push_back(CVector2(0, 0));
+	texCoords.push_back(CVector2(0, 1));
+	texCoords.push_back(CVector2(1, 1));
+
+	IObject *pTriObj = objectMgr->GreateTriangleMesh(vertices, indices, normals, texCoords);
+	ISceneNode *pTriNode = scene->AddObject(pTriObj);
+	float x = rand() % 10 - 5;
+	float y = rand() % 10 - 5;
+	float z = rand() % 10 - 5;
+	pTriNode->SetPosition(CVector3(x, y, z));
 
 	long long next_game_tick = device->GetSystemRunTime();
 	long long sleep_time = 0;
