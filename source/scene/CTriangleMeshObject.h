@@ -18,6 +18,8 @@ namespace se
 			virtual bool LoadMeshFromFile(const char *fileName);
 			virtual bool Interset(const math::CRay &ray, float *distance = nullptr);
 			virtual void GetSurfaceData(const math::CVector3 &hitPoint, math::CVector3 *normal, base::Color *color);
+		private:
+			virtual bool rayTriangleIntersect(const math::CRay &ray, const math::CVector3 &v0, const math::CVector3 &v1, const math::CVector3 &v2, float &t, float &u, float &v);
 		private:			
 			std::vector<math::CVector3> m_Vertices;			// 顶点列表
 			std::vector<ushort> m_Indices;					// 索引列表
