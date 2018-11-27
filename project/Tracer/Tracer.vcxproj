@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\base\Log.cpp" />
+    <ClCompile Include="..\..\source\base\StringHelper.cpp" />
+    <ClCompile Include="..\..\source\device\CDeviceManager.cpp" />
+    <ClCompile Include="..\..\source\device\CEventManager.cpp" />
+    <ClCompile Include="..\..\source\device\CGesture.cpp" />
+    <ClCompile Include="..\..\source\device\CGesturePan.cpp" />
+    <ClCompile Include="..\..\source\device\CGesturePinch.cpp" />
+    <ClCompile Include="..\..\source\device\CGestureTap.cpp" />
+    <ClCompile Include="..\..\source\device\CKeyEvent.cpp" />
+    <ClCompile Include="..\..\source\device\win32\CDeviceWin32.cpp" />
+    <ClCompile Include="..\..\source\main.cpp" />
+    <ClCompile Include="..\..\source\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\source\scene\CObject.cpp" />
+    <ClCompile Include="..\..\source\scene\CObjectManager.cpp" />
+    <ClCompile Include="..\..\source\scene\CObjectNode.cpp" />
+    <ClCompile Include="..\..\source\scene\CScene.cpp" />
+    <ClCompile Include="..\..\source\scene\CSceneManager.cpp" />
+    <ClCompile Include="..\..\source\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\source\scene\CSphereObject.cpp" />
+    <ClCompile Include="..\..\source\tracer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\base\base.h" />
+    <ClInclude Include="..\..\include\base\CSingleton.h" />
+    <ClInclude Include="..\..\include\base\EVariableType.h" />
+    <ClInclude Include="..\..\include\base\Log.h" />
+    <ClInclude Include="..\..\include\base\SColor.h" />
+    <ClInclude Include="..\..\include\base\def.h" />
+    <ClInclude Include="..\..\include\base\type.h" />
+    <ClInclude Include="..\..\include\base\StringHelper.h" />
+    <ClInclude Include="..\..\include\device\EEvent.h" />
+    <ClInclude Include="..\..\include\device\GestureArgs.h" />
+    <ClInclude Include="..\..\include\device\IDevice.h" />
+    <ClInclude Include="..\..\include\device\IDeviceManager.h" />
+    <ClInclude Include="..\..\include\device\IEvent.h" />
+    <ClInclude Include="..\..\include\device\IEventManager.h" />
+    <ClInclude Include="..\..\include\device\IGestureEvent.h" />
+    <ClInclude Include="..\..\include\device\IKeyEvent.h" />
+    <ClInclude Include="..\..\include\math\CAABBox.h" />
+    <ClInclude Include="..\..\include\math\CFrustum.h" />
+    <ClInclude Include="..\..\include\math\CMatrix4.h" />
+    <ClInclude Include="..\..\include\math\CPlane3.h" />
+    <ClInclude Include="..\..\include\math\CQuaternion.h" />
+    <ClInclude Include="..\..\include\math\CRay.h" />
+    <ClInclude Include="..\..\include\math\CVector2.h" />
+    <ClInclude Include="..\..\include\math\CVector3.h" />
+    <ClInclude Include="..\..\include\math\CVector4.h" />
+    <ClInclude Include="..\..\include\math\math.h" />
+    <ClInclude Include="..\..\include\render\IRenderer.h" />
+    <ClInclude Include="..\..\include\scene\ICamera.h" />
+    <ClInclude Include="..\..\include\scene\IObject.h" />
+    <ClInclude Include="..\..\include\scene\IObjectManager.h" />
+    <ClInclude Include="..\..\include\scene\IScene.h" />
+    <ClInclude Include="..\..\include\scene\ISceneManager.h" />
+    <ClInclude Include="..\..\include\scene\ISceneNode.h" />
+    <ClInclude Include="..\..\include\tracer.h" />
+    <ClInclude Include="..\..\source\device\CDeviceManager.h" />
+    <ClInclude Include="..\..\source\device\CEventManager.h" />
+    <ClInclude Include="..\..\source\device\CGesture.h" />
+    <ClInclude Include="..\..\source\device\CGesturePan.h" />
+    <ClInclude Include="..\..\source\device\CGesturePinch.h" />
+    <ClInclude Include="..\..\source\device\CGestureTap.h" />
+    <ClInclude Include="..\..\source\device\CKeyEvent.h" />
+    <ClInclude Include="..\..\source\device\win32\CDeviceWin32.h" />
+    <ClInclude Include="..\..\source\scene\CCamera.h" />
+    <ClInclude Include="..\..\source\scene\CObject.h" />
+    <ClInclude Include="..\..\source\scene\CObjectManager.h" />
+    <ClInclude Include="..\..\source\scene\CObjectNode.h" />
+    <ClInclude Include="..\..\source\scene\CScene.h" />
+    <ClInclude Include="..\..\source\scene\CSceneManager.h" />
+    <ClInclude Include="..\..\source\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\source\scene\CSphereObject.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4599E920-C7A9-4191-A50D-185D5D0184AF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Tracer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\bin\$(Configuration)\</OutDir>
+    <IncludePath>..\..\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\bin\$(Configuration)\</OutDir>
+    <IncludePath>..\..\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
