@@ -81,6 +81,7 @@ namespace se
 			for (int i = 0; i < width * height; ++i)
 			{
 				m_Buffer[i] = base::Color(1.f, 0.5f, 0.5f, 0.9f).Get32BitColor();
+				//m_Buffer[i] = base::Color(1.f, .5f, .5f, .5f).Get32BitColor();
 			}
 
 			uint *pixel = m_Buffer;

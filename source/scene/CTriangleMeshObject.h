@@ -15,9 +15,10 @@ namespace se
 			CTriangleMeshObject(uint id, std::vector<math::CVector3> &vertices, std::vector<ushort> &indices, std::vector<math::CVector3> &normals, std::vector<math::CVector2> &texCoords);
 			virtual ~CTriangleMeshObject();
 			
+			virtual EObjectType GetObjectType() const { return OBJ_TRIANGLE_MESH; }
 			virtual bool LoadMeshFromFile(const char *fileName);
-			virtual bool Interset(const math::CRay &ray, float *distance = nullptr);
-			virtual void GetSurfaceData(const math::CVector3 &hitPoint, math::CVector3 *normal, base::Color *color);
+			virtual bool Intersect(const math::CRay &ray, float *distance = nullptr, math::CVector3 *hitPoint = nullptr, math::CVector2 *uv = nullptr, uint *triIndex = nullptr);
+			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor);
 		private:
 			virtual bool rayTriangleIntersect(const math::CRay &ray, const math::CVector3 &v0, const math::CVector3 &v1, const math::CVector3 &v2, float &t, float &u, float &v);
 		private:			

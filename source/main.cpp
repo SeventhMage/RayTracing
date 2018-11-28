@@ -14,14 +14,14 @@ using namespace device;
 int main(int argc, char *argv[])
 {
 	std::srand(time(0));
-	CTracer tracer(100, 100, 768, 768);
+	CTracer tracer(100, 100, 1024, 768);
 	
 	IDevice *device = tracer.GetDevice();	
 	ISceneManager *sceneMgr = tracer.GetSceneManager();	
 	IScene *scene = sceneMgr->GetCurrentScene();
 	IObjectManager *objectMgr = tracer.GetObjectManager();
 
-	scene->SetupCamera(math::CVector3(0, 0, 15), CVector3(0, 0, -1), CVector3(0, 1, 0), DEG_TO_RAD(60), device->GetWindowWidth() * 1.f / device->GetWindowHeight(), 1, 1000);
+	scene->SetupCamera(math::CVector3(0, 0, 15), CVector3(0, 0, -1), CVector3(0, 1, 0), DEG_TO_RAD(60), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -29,8 +29,9 @@ int main(int argc, char *argv[])
 		float r = MAX(rand() % 255 / 255.f, 0.2f);
 		float g = MAX(rand() % 255 / 255.f, 0.2f);
 		float b = MAX(rand() % 255 / 255.f, 0.2f);
-
-		IObject *pObject = objectMgr->CreateSphere(1, Color(a, r, g, b));		
+		
+		IObject *pObject = objectMgr->CreateSphere(1, Color(.8f, r, g, b));
+		pObject->SetAlbedo(0.0f);
 		ISceneNode *pNode = scene->AddObject(pObject);
 		float x = rand() % 10 - 5;
 		float y = rand() % 10 - 5;
@@ -39,9 +40,9 @@ int main(int argc, char *argv[])
 	}
 	
 	std::vector<math::CVector3> vertices;
-	vertices.push_back(CVector3(0, 0, 1));
-	vertices.push_back(CVector3(5, 1, 5));
-	vertices.push_back(CVector3(-2, 1, 5));
+	vertices.push_back(CVector3(-10, 0, -10));
+	vertices.push_back(CVector3(10, 10, -10));
+	vertices.push_back(CVector3(-5, -10, -10));
 
 	std::vector<ushort>indices;
 	indices.push_back(0);
@@ -49,9 +50,9 @@ int main(int argc, char *argv[])
 	indices.push_back(2);
 
 	std::vector<math::CVector3> normals;
-	normals.push_back(CVector3(0, 1, 0));
-	normals.push_back(CVector3(1, 1, 0));
-	normals.push_back(CVector3(0, 1, 1));
+	normals.push_back(CVector3(0, 0, 1));
+	normals.push_back(CVector3(0, 0, 1));
+	normals.push_back(CVector3(0, 0, 1));
 
 	std::vector<math::CVector2> texCoords;
 	texCoords.push_back(CVector2(0, 0));
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
 	float y = rand() % 10 - 5;
 	float z = rand() % 10 - 5;
 	pTriNode->SetPosition(CVector3(x, y, z));
+	pTriObj->SetAlbedo(0.5f);
 
 	long long next_game_tick = device->GetSystemRunTime();
 	long long sleep_time = 0;

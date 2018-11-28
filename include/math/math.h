@@ -5,7 +5,7 @@
 
 namespace se
 {
-	bool solveQuadratic(const float &a, const float &b, const float &c, float &x0, float &x1)
+	static bool solveQuadratic(const float &a, const float &b, const float &c, float &x0, float &x1)
 	{
 		float discr = b * b - 4 * a * c;
 		if (discr < 0) return false;
@@ -21,6 +21,11 @@ namespace se
 		}
 
 		return true;
+	}
+
+	static math::CVector3 reflect(const math::CVector3 &I, const math::CVector3 &N)
+	{
+		return I - 2 * I.dotProduct(N) * N;
 	}
 }
 

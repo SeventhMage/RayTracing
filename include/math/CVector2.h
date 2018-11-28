@@ -26,6 +26,7 @@ namespace se
 			}
 
 			CVector2 operator*(const float v) const { return CVector2(x * v, y * v); }
+			friend CVector2 operator*(const float v, const CVector2 &vec) { return CVector2(vec.x * v, vec.y * v); }
 			CVector2 operator/(const float v) const { return CVector2(x / v, y / v); }
 			CVector2 operator+(const CVector2 &other)
 			{
