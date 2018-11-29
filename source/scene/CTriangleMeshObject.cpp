@@ -34,9 +34,13 @@ namespace se
 			bool bOnlyInsetTest = (distance == nullptr) && (hitPoint == nullptr) && (uv == nullptr) && (triIndex == nullptr);
 			bool isect = false;
 			for (uint i = 0; i < numTris; ++i) {
-				const CVector3 &v0 = m_Vertices[m_Indices[j]];
-				const CVector3 &v1 = m_Vertices[m_Indices[j + 1]];
-				const CVector3 &v2 = m_Vertices[m_Indices[j + 2]];
+				CVector3 v0 = m_Vertices[m_Indices[j]];
+				CVector3 v1 = m_Vertices[m_Indices[j + 1]];
+				CVector3 v2 = m_Vertices[m_Indices[j + 2]];
+				m_pSceneNode->GetAbsluateMatrix().TransformVect(v0);
+				m_pSceneNode->GetAbsluateMatrix().TransformVect(v1);
+				m_pSceneNode->GetAbsluateMatrix().TransformVect(v2);
+
 				float t = INFINITY, u, v;
 				if (rayTriangleIntersect(ray, v0, v1, v2, t, u, v) && t < tNear) 
 				{
@@ -76,7 +80,7 @@ namespace se
 			const math::CVector2 &st1 = m_TexCoords[triIndex * 3 + 1];
 			const math::CVector2 &st2 = m_TexCoords[triIndex * 3 + 2];
 			math::CVector2 hitTextureCoordinates = (1 - uv.x - uv.y) * st0 + uv.x * st1 + uv.y * st2;
-			hitColor = base::Color(1.f, 0.7f, 0.7f, 0.7f);
+			hitColor = base::Color(1.f, 0.3f, 0.5f, 0.7f);
 		}
 
 		bool CTriangleMeshObject::rayTriangleIntersect(const math::CRay &ray, const math::CVector3 &v0, const math::CVector3 &v1, const math::CVector3 &v2, float &t, float &u, float &v)

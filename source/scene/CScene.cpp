@@ -15,16 +15,16 @@ namespace se
 			, m_pCamera(nullptr)
 			, m_pRootNode(new CSceneNode(this))
 			, m_Buffer(nullptr)
-		{
-
+			, m_pBufferBack(nullptr)
+		{			
 		}
 		CScene::CScene(const char *name)
 			:m_strSceneName(name)
 			, m_pCamera(nullptr)
 			, m_pRootNode(new CSceneNode(this))		
 			, m_Buffer(nullptr)
+			, m_pBufferBack(nullptr)
 		{
-			
 		}
 
 		CScene::~CScene()
@@ -73,10 +73,9 @@ namespace se
 			int width = CTracer::GetDevice()->GetWindowWidth();
 			int height = CTracer::GetDevice()->GetWindowHeight();
 			if (m_Buffer == nullptr)
-			{				
+			{
 				m_Buffer = new uint[width * height];
 			}
-			memset(m_Buffer, 0, sizeof(uint) * width * height);
 
 			for (int i = 0; i < width * height; ++i)
 			{
@@ -84,11 +83,10 @@ namespace se
 				//m_Buffer[i] = base::Color(1.f, .5f, .5f, .5f).Get32BitColor();
 			}
 
-			uint *pixel = m_Buffer;
-			
-			for (unsigned int y = 0; y < height; ++y)
+			uint *pixel = m_Buffer;		
+			for (uint y = 0; y < height; ++y)
 			{
-				for (unsigned int x = 0; x < width; ++x, ++pixel)
+				for (uint x = 0; x < width; ++x, ++pixel)
 				{
 					CRay ray = m_pCamera->GetCameraRay(x, y, width, height);
 					base::Color color;
@@ -96,10 +94,12 @@ namespace se
 					{
 						*pixel = color.Get32BitColor();
 					}
-				}					
+				}
 			}
 
 			CTracer::GetDevice()->DrawBuffer(m_Buffer);
 		}
+
+
 	}
 }

@@ -21,7 +21,8 @@ namespace se
 		{
 		public:
 			virtual ~IObject(){}
-			virtual void AddToSceneNode(ISceneNode *pSceneNode) = 0;			
+			virtual void AddToSceneNode(ISceneNode *pSceneNode) = 0;
+			virtual ISceneNode *GetSceneNode() = 0;
 			virtual bool Intersect(const math::CRay &ray, float *distance = nullptr, math::CVector3 *hitPoint = nullptr, math::CVector2 *uv = nullptr, uint *triIndex = nullptr) = 0;
 			virtual void GetSurfaceData(const math::CVector3 &hitPoint, math::CVector3 &hitNormal, base::Color &hitColor) = 0;
 			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor) = 0;

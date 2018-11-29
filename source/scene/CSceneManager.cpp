@@ -1,5 +1,6 @@
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "tracer.h"
 
 namespace se
 {

@@ -13,6 +13,7 @@ namespace se
 			CObject(uint id);
 			virtual ~CObject();
 			virtual void AddToSceneNode(ISceneNode *pSceneNode);
+			virtual ISceneNode *GetSceneNode() { return m_pSceneNode; }
 			virtual uint GetID() const { return m_Id; }			
 			virtual void GetSurfaceData(const math::CVector3 &hitPoint, math::CVector3 &hitNormal, base::Color &hitColor) {}
 			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor) {}

@@ -1,11 +1,12 @@
 ﻿#ifndef _SCENE_C_SCENE_H_
 #define _SCENE_C_SCENE_H_
 
-#include <string>
-
 #include "scene/IScene.h"
 #include "scene/ISceneNode.h"
 #include "CCamera.h"
+
+#include <string>
+#include <thread>
 
 
 namespace se
@@ -39,6 +40,8 @@ namespace se
 			ISceneNode *m_pRootNode;
 			CCamera *m_pCamera;
 			uint *m_Buffer;
+			uint *m_pBufferBack;
+			
 		};
 	}
 }

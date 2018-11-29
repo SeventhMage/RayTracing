@@ -5,6 +5,8 @@
 #include "scene/IScene.h"
 #include "base/CSingleton.h"
 
+#include <thread>
+
 namespace se
 {
 	namespace scene
@@ -19,7 +21,7 @@ namespace se
 			virtual IScene *GetCurrentScene(){ return m_pCurrentScene; }
 			virtual void Update(int delta);
 		private:
-			IScene *m_pCurrentScene;			
+			IScene *m_pCurrentScene;
 		};
 	}
 }

@@ -20,6 +20,7 @@ namespace se
 			virtual IObject *GreateTriangleMesh(std::vector<math::CVector3> &vertices, std::vector<ushort> &indices,
 				std::vector<math::CVector3> &normals, std::vector<math::CVector2> &texCoords) = 0;
 			virtual bool Trace(const math::CRay &ray, base::Color *color, int depth = 5) = 0;
+			virtual IObject *Trace(const math::CRay &ray) = 0;
 		};
 	}
 }

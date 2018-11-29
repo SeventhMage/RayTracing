@@ -17,10 +17,10 @@ namespace se
 		void CObjectNode::Update(int delta)
 		{
 			CSceneNode::Update(delta);
-			float x = (rand() % 2 - 0.5) * 0.1f;
-			float y = (rand() % 2 - 0.5) * 0.1f;
-			float z = (rand() % 2 - 0.5) * 0.1f;
-			SetPosition(GetAbslutePosition() + math::CVector3(x, y, z));
+			//float x = (rand() % 2 - 0.5) * 0.2f;
+			//float y = (rand() % 2 - 0.5) * 0.2f;
+			//float z = (rand() % 2 - 0.5) * 0.2f;
+			//SetPosition(GetAbslutePosition() + math::CVector3(x, y, z));
 		}
 	}
 }

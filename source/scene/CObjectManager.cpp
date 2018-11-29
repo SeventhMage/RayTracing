@@ -144,5 +144,24 @@ namespace se
 
 			return pObject != nullptr;
 		}
+
+		IObject * CObjectManager::Trace(const math::CRay &ray)
+		{
+			float tnear = INFINITY;
+			IObject *pObject = nullptr;			
+						
+			for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
+			{
+				float dis = INFINITY;
+				if (it->second->Intersect(ray, &dis) && dis < tnear)
+				{					
+					pObject = it->second;
+					tnear = dis;
+				}
+			}
+
+			return pObject;
+		}
+
 	}
 }

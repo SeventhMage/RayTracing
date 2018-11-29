@@ -4,6 +4,7 @@
 #include "math/CVector3.h"
 #include "math/CMatrix4.h"
 #include "math/CFrustum.h"
+#include "math/CRay.h"
 
 namespace se
 {
@@ -12,6 +13,7 @@ namespace se
 		using math::CVector3;
 		using math::CMatrix4;
 		using math::CFrustum;
+		using math::CRay;
 
 		class ISceneNode;
 		class ICamera
@@ -53,6 +55,7 @@ namespace se
 			virtual void SetNeedUpdateProjectionMatrix() = 0;
 			virtual void SetDistance(float fDis) = 0;
 			virtual ISceneNode *GetFocus() = 0;
+			virtual CRay GetCameraRay(int scnX, int scnY, int imageWidth, int imageHeight) = 0;
 		};
 	}
 }
