@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\source\base\CThread.cpp" />
     <ClCompile Include="..\..\source\base\Log.cpp" />
     <ClCompile Include="..\..\source\base\StringHelper.cpp" />
     <ClCompile Include="..\..\source\device\CDeviceManager.cpp" />
@@ -37,6 +38,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\base\base.h" />
     <ClInclude Include="..\..\include\base\CSingleton.h" />
+    <ClInclude Include="..\..\include\base\CThread.h" />
     <ClInclude Include="..\..\include\base\EVariableType.h" />
     <ClInclude Include="..\..\include\base\Log.h" />
     <ClInclude Include="..\..\include\base\SColor.h" />
