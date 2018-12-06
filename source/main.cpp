@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 	IObjectManager *objectMgr = tracer.GetObjectManager();
 	IKeyEvent *pEvent = tracer.GetEventManager()->GetKeyEvent();
 
-	scene->SetupCamera(math::CVector3(0, 0, 15), CVector3(0, 0, -1), CVector3(0, 1, 0), DEG_TO_RAD(60), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
-
-	for (int i = 0; i < 10; ++i)
+	ICamera *pCamera = scene->SetupCamera(math::CVector3(0, 5, 10), CVector3(0, -0.6, -1), CVector3(0, 1, 0), DEG_TO_RAD(30), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
+	//ICamera *pCamera = scene->SetupCamera(math::CVector3(0, 0, 5), CVector3(0, 0, -1), CVector3(0, 1, 0), DEG_TO_RAD(30), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
+	for (int i = 0; i < 1; ++i)
 	{
 		float a = MAX(rand() % 255 / 255.f, 0.1f);
 		float r = MAX(rand() % 255 / 255.f, 0.2f);
@@ -32,18 +32,19 @@ int main(int argc, char *argv[])
 		float b = MAX(rand() % 255 / 255.f, 0.2f);
 		
 		IObject *pObject = objectMgr->CreateSphere(1, Color(1.f, r, g, b));
-		pObject->SetAlbedo(0.5f);
+		//pObject->SetAlbedo(0.5f);
 		ISceneNode *pNode = scene->AddObject(pObject);
 		float x = rand() % 10 - 5;
 		float y = rand() % 10 - 5;
 		float z = rand() % 10 - 5;
-		pNode->SetPosition(CVector3(x, y, z));
+		pNode->SetPosition(CVector3(0, -4.f, -5.f));
+		//pNode->SetPosition(CVector3(0, 0, -5));
 	}
 	
 	std::vector<math::CVector3> vertices;
-	vertices.push_back(CVector3(-10, 0, -10));
-	vertices.push_back(CVector3(10, 10, -10));
-	vertices.push_back(CVector3(-5, -10, -10));
+	vertices.push_back(CVector3(-10, -5, -10));
+	vertices.push_back(CVector3(10, -5, -10));
+	vertices.push_back(CVector3(0, -5, -2));
 
 	std::vector<ushort>indices;
 	indices.push_back(0);
@@ -51,9 +52,9 @@ int main(int argc, char *argv[])
 	indices.push_back(2);
 
 	std::vector<math::CVector3> normals;
-	normals.push_back(CVector3(0, 0, 1));
-	normals.push_back(CVector3(0, 0, 1));
-	normals.push_back(CVector3(0, 0, 1));
+	normals.push_back(CVector3(0, 1, 0));
+	normals.push_back(CVector3(0, 1, 0));
+	normals.push_back(CVector3(0, 1, 0));
 
 	std::vector<math::CVector2> texCoords;
 	texCoords.push_back(CVector2(0, 0));
@@ -65,8 +66,8 @@ int main(int argc, char *argv[])
 	float x = rand() % 10 - 5;
 	float y = rand() % 10 - 5;
 	float z = rand() % 10 - 5;
-	pTriNode->SetPosition(CVector3(x, y, z));
-	pTriObj->SetAlbedo(0.8f);
+	//pTriNode->SetPosition(CVector3(x, y, z));
+	pTriObj->SetAlbedo(.0f);
 
 	long long next_game_tick = device->GetSystemRunTime();
 	long long sleep_time = 0;
@@ -132,6 +133,26 @@ int main(int argc, char *argv[])
 				lastMouseY = -1;
 			}
 
+			CVector3 camPos = pCamera->GetPosition();
+			float dt = 0.1f;
+			if (pEvent->IsPress(EKP_KEYBOARD_W))
+			{
+				camPos.z -= dt;				
+			}
+			else if (pEvent->IsPress(EKP_KEYBOARD_A))
+			{
+				camPos.x -= dt;
+			}
+			else if (pEvent->IsPress(EKP_KEYBOARD_S))
+			{
+				camPos.z += dt;
+			}
+			else if (pEvent->IsPress(EKP_KEYBOARD_D))
+			{
+				camPos.x += dt;
+			}
+
+			pCamera->SetPosition(camPos);
 		}
 		else
 		{

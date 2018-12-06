@@ -64,7 +64,7 @@ namespace se
 			IObject *pObject = nullptr;
 			math::CVector2 uv;
 			uint triIndex = 0;
-			float bias = 1e-4;
+			float bias = 0.001f;
 
 			for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
 			{
@@ -91,22 +91,24 @@ namespace se
 				}
 				*color = hitColor;
 
-				math::CVector3 lightPos(5, 10, 15);
+				math::CVector3 lightPos(.0f, -2.f, -5.f);
 				base::Color lightColor(1.f, 1.f, 1.f, 1.f);
-				base::Color ambient(1.f, 0.3f, 0.3f, 0.3f);
+				base::Color ambient(1.f, 0.1f, 0.1f, 0.1f);
 				math::CVector3 dir = lightPos - hitPoint;
+				float hit2Light = lightPos.getDistanceFromSQ(hitPoint);
 				dir.normalize();
 
 				for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
 				{					
-					if (it->second->Intersect(math::CRay(hitPoint + dir * bias, dir)))
+					float tmpDis = 0;
+					if (it->second->Intersect(math::CRay(hitPoint + dir * bias, dir), &tmpDis) && tmpDis * tmpDis < hit2Light)
 					{
 						*color = base::Color(color->a, MIN(ambient.r * color->r, 1), MIN(ambient.g * color->g, 1), MIN(ambient.b * color->b, 1));
 						return true;
 					}
 				}
 
-				lightColor *= MAX(dir.dotProduct(hitNormal), 0);
+				lightColor *= MAX(dir.dotProduct(hitNormal), 0) * (1 / lightPos.getDistanceFrom(hitPoint));
 				lightColor += ambient;
 				*color = base::Color(color->a, MIN(lightColor.r * color->r, 1), MIN(lightColor.g * color->g, 1), MIN(lightColor.b * color->b, 1));
 
@@ -138,8 +140,7 @@ namespace se
 						color->g = (1 - pObject->GetAlbedo()) * color->g + pObject->GetAlbedo() * color2.g;
 						color->b = (1 - pObject->GetAlbedo()) * color->b + pObject->GetAlbedo() * color2.b;					
 					}
-				}
-
+				}				
 			}
 
 			return pObject != nullptr;
