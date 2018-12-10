@@ -31,6 +31,8 @@ namespace se
 			virtual EObjectType GetObjectType() const = 0;
 			virtual float GetAlbedo() const = 0;
 			virtual void SetAlbedo(float fAlbedo) = 0;
+			virtual void SetIndexOfRefraction(float fIOR) = 0;
+			virtual float GetIndexOfRefraction() const = 0;
 		};
 	}
 }

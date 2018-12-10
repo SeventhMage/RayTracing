@@ -31,6 +31,7 @@ namespace se
 			virtual ICamera *GetCamera();
 
 			virtual ISceneNode *AddObject(IObject *pObject);
+			virtual void AddLight(const std::shared_ptr<ILight> &light);
 
 			virtual void Update(int delta);
 			virtual void Render();
@@ -41,6 +42,7 @@ namespace se
 			CCamera *m_pCamera;
 			uint *m_Buffer;
 			uint *m_pBufferBack;
+			std::vector<std::shared_ptr<ILight> > m_Lights;
 			
 		};
 	}

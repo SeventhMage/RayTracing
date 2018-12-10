@@ -76,10 +76,10 @@ namespace se
 			{
 				m_Buffer = new uint[width * height];
 			}
-
-			for (int i = 0; i < width * height; ++i)
+			memset(m_Buffer, 0, sizeof(uint) * width * height);
+			//for (int i = 0; i < width * height; ++i)
 			{
-				m_Buffer[i] = base::Color(1.f, 0.5f, 0.5f, 0.9f).Get32BitColor();
+				//m_Buffer[i] = base::Color(1.f, 0.5f, 0.5f, 0.9f).Get32BitColor();
 				//m_Buffer[i] = base::Color(1.f, .5f, .5f, .5f).Get32BitColor();
 			}
 
@@ -90,7 +90,7 @@ namespace se
 				{
 					CRay ray = m_pCamera->GetCameraRay(x, y, width, height);
 					base::Color color;
-					if (CTracer::GetObjectManager()->Trace(ray, &color))
+					if (CTracer::GetObjectManager()->Trace(&color, ray, m_Lights))
 					{
 						*pixel = color.Get32BitColor();
 					}
@@ -98,6 +98,11 @@ namespace se
 			}
 
 			CTracer::GetDevice()->DrawBuffer(m_Buffer);
+		}
+
+		void CScene::AddLight(const std::shared_ptr<ILight> &light)
+		{
+			m_Lights.push_back(light);
 		}
 
 

@@ -114,6 +114,18 @@
     <ClCompile Include="..\..\source\base\CThread.cpp">
       <Filter>source\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\scene\CAmbientLight.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\scene\CLight.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\scene\CPointLight.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\scene\CDirectionLight.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\device\win32\CDeviceWin32.h">
@@ -277,6 +289,21 @@
     </ClInclude>
     <ClInclude Include="..\..\include\base\CThread.h">
       <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\scene\ILight.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scene\CAmbientLight.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scene\CLight.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scene\CPointLight.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\scene\CDirectionLight.h">
+      <Filter>source\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,12 @@
 #include "CObjectManager.h"
 #include "CSphereObject.h"
 #include "CTriangleMeshObject.h"
+#include "CPointLight.h"
+#include "CDirectionLight.h"
 
 #include "base/def.h"
 #include "math/math.h"
+
 
 namespace se
 {
@@ -29,7 +32,7 @@ namespace se
 		{
 			size_t size = m_mapObjects.size();
 			uint id = size + 1;
-			m_mapObjects[id] = new CSphereObject(id, fRadius, color);			
+			m_mapObjects[id] = new CSphereObject(id, fRadius, color);
 			return m_mapObjects[id];
 		}
 
@@ -58,13 +61,14 @@ namespace se
 			return nullptr;
 		}
 
-		bool CObjectManager::Trace(const math::CRay &ray, base::Color *color, int depth /* = 5 */)
+		bool CObjectManager::Trace(base::Color *color, const math::CRay &ray, const std::vector<std::shared_ptr<ILight> > &lights, int depth /* = 5 */)
 		{
 			float tnear = INFINITY;
 			IObject *pObject = nullptr;
 			math::CVector2 uv;
 			uint triIndex = 0;
 			float bias = 0.001f;
+			*color = base::Color();
 
 			for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
 			{
@@ -77,7 +81,7 @@ namespace se
 			}
 
 			if (pObject)
-			{				
+			{
 				math::CVector3 hitPoint = ray.GetOrigin() + ray.GetDirection() * tnear;
 				math::CVector3 hitNormal;
 				base::Color hitColor;
@@ -89,58 +93,107 @@ namespace se
 				{
 					pObject->GetSurfaceData(triIndex, uv, hitNormal, hitColor);
 				}
-				*color = hitColor;
 
-				math::CVector3 lightPos(.0f, -2.f, -5.f);
-				base::Color lightColor(1.f, 1.f, 1.f, 1.f);
-				base::Color ambient(1.f, 0.1f, 0.1f, 0.1f);
-				math::CVector3 dir = lightPos - hitPoint;
-				float hit2Light = lightPos.getDistanceFromSQ(hitPoint);
-				dir.normalize();
-
-				for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
-				{					
-					float tmpDis = 0;
-					if (it->second->Intersect(math::CRay(hitPoint + dir * bias, dir), &tmpDis) && tmpDis * tmpDis < hit2Light)
+				for (auto light : lights)
+				{
+					base::Color lightColor = light->GetColor();
+					switch (light->GetType())
 					{
-						*color = base::Color(color->a, MIN(ambient.r * color->r, 1), MIN(ambient.g * color->g, 1), MIN(ambient.b * color->b, 1));
-						return true;
+					case ELightType::LT_AMBIENT:
+					{
+						*color = base::Color(hitColor.a, MIN((color->r + lightColor.r * hitColor.r), 1), MIN(color->g + lightColor.g * hitColor.g, 1), MIN(color->b + lightColor.b * hitColor.b, 1));
 					}
+						break;
+					case ELightType::LT_DIRECTION:
+					{
+						CDirectionLight *pLight = dynamic_cast<CDirectionLight *>(light.get());
+						if (pLight)
+						{
+							if (hitNormal.dotProduct(-pLight->GetDirection()) > 0)
+							{
+								for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
+								{
+									float tmpDis = 0;
+									if (!it->second->Intersect(math::CRay(hitPoint - pLight->GetDirection() * bias, -pLight->GetDirection()), &tmpDis))
+									{
+										lightColor *= light->GetIntensity() * MAX(-pLight->GetDirection().dotProduct(hitNormal), 0);
+										*color = base::Color(hitColor.a, MIN((color->r + lightColor.r * hitColor.r), 1), MIN(color->g + lightColor.g * hitColor.g, 1), MIN(color->b + lightColor.b * hitColor.b, 1));
+									}
+								}
+							}
+						}
+					}
+						break;
+					case ELightType::LT_POINT:
+					{
+						CPointLight *pLight = dynamic_cast<CPointLight *>(light.get());
+						if (pLight)
+						{
+							math::CVector3 lightPos = pLight->GetPosition();
+							
+							math::CVector3 dir = lightPos - hitPoint;
+							dir.normalize();
+							float hit2Light = lightPos.getDistanceFromSQ(hitPoint);
+
+							if (hitNormal.dotProduct(dir) > 0)
+							{
+								for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
+								{
+									float tmpDis = 0;
+									if (!it->second->Intersect(math::CRay(hitPoint + dir * bias, dir), &tmpDis) && tmpDis * tmpDis < hit2Light)
+									{
+										lightColor *= light->GetIntensity() * MAX(dir.dotProduct(hitNormal), 0) * (1 / (lightPos.getDistanceFromSQ(hitPoint)));	
+										*color = base::Color(hitColor.a, MIN((color->r + lightColor.r * hitColor.r), 1), MIN(color->g + lightColor.g * hitColor.g, 1), MIN(color->b + lightColor.b * hitColor.b, 1));
+									}
+								}
+							}
+						}
+					}
+						break;
+					default:
+						break;
+					}
+
+					
 				}
 
-				lightColor *= MAX(dir.dotProduct(hitNormal), 0) * (1 / lightPos.getDistanceFrom(hitPoint));
-				lightColor += ambient;
-				*color = base::Color(color->a, MIN(lightColor.r * color->r, 1), MIN(lightColor.g * color->g, 1), MIN(lightColor.b * color->b, 1));
+				if (color->a < 1.f && depth > 0)
+				{
+					base::Color refractionColor;
 
-				if (color->a < 1.f )
-				{										
-					base::Color color2;
-					if (depth > 0 && Trace(math::CRay(hitPoint + ray.GetDirection() * bias, ray.GetDirection()), &color2, depth - 1))
+					float kr = 0;
+					fresnel(ray.GetDirection(), hitNormal, pObject->GetIndexOfRefraction(), kr);
+					bool outside = ray.GetDirection().dotProduct(hitNormal) < 0;
+					math::CVector3 vBias = bias * hitNormal;
+					if (kr < 1)
 					{
-						color->r = color->a * color->r + (1 - color->a) * color2.r;
-						color->g = color->a * color->g + (1 - color->a) * color2.g;
-						color->b = color->a * color->b + (1 - color->a) * color2.b;
+						math::CVector3 refractionDirection = refract(ray.GetDirection(), hitNormal, pObject->GetIndexOfRefraction()).normalize();
+						math::CVector3 refractionRayOrig = outside ? hitPoint - vBias : hitPoint + vBias;
+						if (Trace(&refractionColor, math::CRay(refractionRayOrig, refractionDirection), lights, depth - 1))
+						{
+							int a = 3;
+						}
 					}
-					else
-					{
-						color->r = color->a * color->r;
-						color->g = color->a * color->g;
-						color->b = color->a * color->b;
-					}
+					base::Color reflectionColor;
+					math::CVector3 reflectDir =  reflect(ray.GetDirection(), hitNormal);
+					Trace(&reflectionColor, math::CRay(hitPoint + hitNormal * bias, reflectDir), lights, depth - 1);
+
+					*color += reflectionColor * kr + refractionColor * (1 - kr);
+					color->a = hitColor.a;
+
 				}
 
 				if (pObject->GetAlbedo() > 0)
 				{
 					math::CVector3 reflectDir = reflect(ray.GetDirection(), hitNormal);
-					float bias = 1e-4;
 					base::Color color2;
-					if (depth > 0 && Trace(math::CRay(hitPoint + reflectDir * bias, reflectDir), &color2, depth - 1))
+					if (depth > 0 && Trace(&color2, math::CRay(hitPoint + reflectDir * bias, reflectDir), lights, depth - 1))
 					{
 						color->r = (1 - pObject->GetAlbedo()) * color->r + pObject->GetAlbedo() * color2.r;
 						color->g = (1 - pObject->GetAlbedo()) * color->g + pObject->GetAlbedo() * color2.g;
-						color->b = (1 - pObject->GetAlbedo()) * color->b + pObject->GetAlbedo() * color2.b;					
+						color->b = (1 - pObject->GetAlbedo()) * color->b + pObject->GetAlbedo() * color2.b;
 					}
-				}				
+				}
 			}
 
 			return pObject != nullptr;
@@ -149,13 +202,13 @@ namespace se
 		IObject * CObjectManager::Trace(const math::CRay &ray)
 		{
 			float tnear = INFINITY;
-			IObject *pObject = nullptr;			
-						
+			IObject *pObject = nullptr;
+
 			for (auto it = m_mapObjects.begin(); it != m_mapObjects.end(); ++it)
 			{
 				float dis = INFINITY;
 				if (it->second->Intersect(ray, &dis) && dis < tnear)
-				{					
+				{
 					pObject = it->second;
 					tnear = dis;
 				}

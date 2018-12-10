@@ -80,7 +80,7 @@ namespace se
 			const math::CVector2 &st1 = m_TexCoords[triIndex * 3 + 1];
 			const math::CVector2 &st2 = m_TexCoords[triIndex * 3 + 2];
 			math::CVector2 hitTextureCoordinates = (1 - uv.x - uv.y) * st0 + uv.x * st1 + uv.y * st2;
-			hitColor = base::Color(1.f, 0.3f, 0.5f, 0.7f);
+			hitColor = base::Color(.1f, 0.1f, 0.2f, .4f);
 		}
 
 		bool CTriangleMeshObject::rayTriangleIntersect(const math::CRay &ray, const math::CVector3 &v0, const math::CVector3 &v1, const math::CVector3 &v2, float &t, float &u, float &v)

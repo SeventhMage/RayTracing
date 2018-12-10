@@ -6,6 +6,7 @@
 
 #include <map>
 
+
 namespace se
 {
 	namespace scene
@@ -21,7 +22,7 @@ namespace se
 			virtual IObject *GreateTriangleMesh(const char *fileName);
 			virtual IObject *GreateTriangleMesh(std::vector<math::CVector3> &vertices, std::vector<ushort> &indices,
 				std::vector<math::CVector3> &normals, std::vector<math::CVector2> &texCoords);
-			virtual bool Trace(const math::CRay &ray, base::Color *color, int depth = 5);
+			virtual bool Trace(base::Color *color, const math::CRay &ray, const std::vector<std::shared_ptr<ILight> > &lights, int depth = 5);
 			virtual IObject *Trace(const math::CRay &ray);
 		private:
 			std::map<uint, IObject *> m_mapObjects;

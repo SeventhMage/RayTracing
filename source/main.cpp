@@ -1,6 +1,9 @@
 #include "tracer.h"
 
 #include <ctime>
+#include "scene/CPointLight.h"
+#include "scene/CAmbientLight.h"
+#include "scene/CDirectionLight.h"
 
 static const int FRAMES_PER_SECOND = 100;
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
@@ -24,6 +27,11 @@ int main(int argc, char *argv[])
 
 	ICamera *pCamera = scene->SetupCamera(math::CVector3(0, 5, 10), CVector3(0, -0.6, -1), CVector3(0, 1, 0), DEG_TO_RAD(30), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
 	//ICamera *pCamera = scene->SetupCamera(math::CVector3(0, 0, 5), CVector3(0, 0, -1), CVector3(0, 1, 0), DEG_TO_RAD(30), 1 /*device->GetWindowWidth() * 1.f / device->GetWindowHeight()*/, 1, 1000);
+	//scene->AddLight(std::shared_ptr<ILight>(new CPointLight(math::CVector3(0, -2.f, -5.f), base::Color(1, 1.f, 1.f, 1.f), 5.f)));
+	scene->AddLight(std::shared_ptr<ILight>(new CAmbientLight(base::Color(1, .3f, .3f, .3f), 1.f)));
+	scene->AddLight(std::shared_ptr<ILight>(new CDirectionLight(math::CVector3(-1, -1.f, -1.f), base::Color(1, 1.f, 1.f, 1.f), 1.f)));
+	//scene->AddLight(std::shared_ptr<ILight>(new CPointLight(math::CVector3(-2, -2.f, -3.f), base::Color(1, 1.f, 1.f, 1.f), 1.f)));
+
 	for (int i = 0; i < 1; ++i)
 	{
 		float a = MAX(rand() % 255 / 255.f, 0.1f);
@@ -31,14 +39,23 @@ int main(int argc, char *argv[])
 		float g = MAX(rand() % 255 / 255.f, 0.2f);
 		float b = MAX(rand() % 255 / 255.f, 0.2f);
 		
-		IObject *pObject = objectMgr->CreateSphere(1, Color(1.f, r, g, b));
-		//pObject->SetAlbedo(0.5f);
+		if (i == 0)
+			a = .5f;
+
+		IObject *pObject = objectMgr->CreateSphere(1, Color(1.f, .1f, .1f, .1f));
+		pObject->SetAlbedo(.0f);
+		//if ( i == 0)
+		//	pObject->SetIndexOfRefraction(1.3f);
+		
 		ISceneNode *pNode = scene->AddObject(pObject);
-		float x = rand() % 10 - 5;
-		float y = rand() % 10 - 5;
-		float z = rand() % 10 - 5;
-		pNode->SetPosition(CVector3(0, -4.f, -5.f));
-		//pNode->SetPosition(CVector3(0, 0, -5));
+		float x = rand() % 6 - 3;
+		float y = rand() % 6 - 3;
+		float z = rand() % 6 - 3;
+		//pNode->SetPosition(CVector3(x, y, z));
+		if (i == 1)
+			pNode->SetPosition(CVector3(0, -4.f, -5.f));
+		if (i == 0)
+			pNode->SetPosition(CVector3(0, -6.5f, -8.f));
 	}
 	
 	std::vector<math::CVector3> vertices;
@@ -63,11 +80,12 @@ int main(int argc, char *argv[])
 
 	IObject *pTriObj = objectMgr->GreateTriangleMesh(vertices, indices, normals, texCoords);
 	ISceneNode *pTriNode = scene->AddObject(pTriObj);
+	pTriObj->SetIndexOfRefraction(1.3f);
 	float x = rand() % 10 - 5;
 	float y = rand() % 10 - 5;
 	float z = rand() % 10 - 5;
 	//pTriNode->SetPosition(CVector3(x, y, z));
-	pTriObj->SetAlbedo(.0f);
+	//pTriObj->SetAlbedo(.0f);
 
 	long long next_game_tick = device->GetSystemRunTime();
 	long long sleep_time = 0;

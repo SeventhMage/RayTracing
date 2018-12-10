@@ -19,10 +19,13 @@ namespace se
 			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor) {}
 			virtual float GetAlbedo() const { return m_fAlbedo; }
 			virtual void SetAlbedo(float fAlbedo) { m_fAlbedo = fAlbedo; }
+			virtual void SetIndexOfRefraction(float fIOR) { m_fIOR = fIOR; }
+			virtual float GetIndexOfRefraction() const { return m_fIOR; }
 		protected:
 			uint m_Id;
 			ISceneNode *m_pSceneNode;
 			float m_fAlbedo;
+			float m_fIOR;
 		};
 	}
 }

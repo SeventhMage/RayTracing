@@ -5,8 +5,9 @@
 #include "ISceneNode.h"
 #include "ICamera.h"
 #include "scene/IObject.h"
+#include "scene/ILight.h"
 
-
+#include <memory>
 
 namespace se
 {
@@ -30,6 +31,8 @@ namespace se
 			virtual ICamera *GetCamera() = 0;			
 
 			virtual ISceneNode *AddObject(IObject *) = 0;
+
+			virtual void AddLight(const std::shared_ptr<ILight> &light) = 0;
 
 			virtual void Update(int delta) = 0;
 			virtual void Render() = 0;

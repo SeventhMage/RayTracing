@@ -24,10 +24,14 @@
     <ClCompile Include="..\..\source\device\win32\CDeviceWin32.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
     <ClCompile Include="..\..\source\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\source\scene\CAmbientLight.cpp" />
     <ClCompile Include="..\..\source\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\source\scene\CDirectionLight.cpp" />
+    <ClCompile Include="..\..\source\scene\CLight.cpp" />
     <ClCompile Include="..\..\source\scene\CObject.cpp" />
     <ClCompile Include="..\..\source\scene\CObjectManager.cpp" />
     <ClCompile Include="..\..\source\scene\CObjectNode.cpp" />
+    <ClCompile Include="..\..\source\scene\CPointLight.cpp" />
     <ClCompile Include="..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\source\scene\CSceneNode.cpp" />
@@ -66,6 +70,7 @@
     <ClInclude Include="..\..\include\render\IRenderer.h" />
     <ClInclude Include="..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\include\scene\ICamera.h" />
+    <ClInclude Include="..\..\include\scene\ILight.h" />
     <ClInclude Include="..\..\include\scene\IObject.h" />
     <ClInclude Include="..\..\include\scene\IObjectManager.h" />
     <ClInclude Include="..\..\include\scene\IScene.h" />
@@ -81,10 +86,14 @@
     <ClInclude Include="..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\source\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\source\resource\CResourceManager.h" />
+    <ClInclude Include="..\..\source\scene\CAmbientLight.h" />
     <ClInclude Include="..\..\source\scene\CCamera.h" />
+    <ClInclude Include="..\..\source\scene\CDirectionLight.h" />
+    <ClInclude Include="..\..\source\scene\CLight.h" />
     <ClInclude Include="..\..\source\scene\CObject.h" />
     <ClInclude Include="..\..\source\scene\CObjectManager.h" />
     <ClInclude Include="..\..\source\scene\CObjectNode.h" />
+    <ClInclude Include="..\..\source\scene\CPointLight.h" />
     <ClInclude Include="..\..\source\scene\CScene.h" />
     <ClInclude Include="..\..\source\scene\CSceneManager.h" />
     <ClInclude Include="..\..\source\scene\CSceneNode.h" />

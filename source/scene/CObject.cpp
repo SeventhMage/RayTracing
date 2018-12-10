@@ -10,6 +10,7 @@ namespace se
 			:m_Id(id)
 			, m_pSceneNode(nullptr)
 			, m_fAlbedo(0.f)
+			, m_fIOR(1.f)
 		{
 
 		}
